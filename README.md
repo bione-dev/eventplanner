@@ -1,10 +1,10 @@
 # Event Planner API
 
-Esta é uma API RESTful para gerenciar eventos, desenvolvida com **Quarkus** e **Hibernate ORM com Panache**. Atualmente, a API suporta operações básicas de CRUD (Create, Read, Update, Delete) para eventos. A funcionalidade de gerenciamento de participantes será adicionada futuramente.
+Esta é uma API RESTful para gerenciar eventos, desenvolvida com **Quarkus** e **Hibernate ORM com Panache**. A API suporta operações básicas de CRUD (Create, Read, Update, Delete) para eventos e agora também para participantes.
 
-## **Funcionalidades Implementadas**
+## Funcionalidades Implementadas
 
-### **Endpoints para Eventos**
+### Endpoints para Eventos
 1. **GET /events**
    - Retorna uma lista de todos os eventos.
    - **Exemplo de Resposta (200 OK):**
@@ -78,18 +78,45 @@ Esta é uma API RESTful para gerenciar eventos, desenvolvida com **Quarkus** e *
    - **Resposta Esperada (204 No Content):**
      - Sem corpo de resposta.
 
----
+### Endpoints para Participantes
+1. **POST /events/{eventId}/participants**
+   - Adiciona um participante a um evento específico.
+   - **URL:** `/events/3/participants`
+   - **Body (JSON):**
+     ```json
+     {
+         "name": "Bruno Roberto",
+         "email": "brunor.doe@example.com"
+     }
+     ```
+   - **Exemplo de Resposta (201 Created):**
+     ```json
+     {
+         "id": 10,
+         "name": "Bruno Roberto",
+         "email": "brunor.doe@example.com"
+     }
+     ```
 
-## **Estrutura do Projeto**
+2. **DELETE /events/{eventId}/participants/{participantId}**
+   - Remove um participante específico de um evento.
+   - **URL:** `/events/3/participants/10`
+   - **Resposta Esperada (204 No Content):**
+     - Sem corpo de resposta.
 
-### **Entidades**
+## Estrutura do Projeto
+
+### Entidades
 1. **Event**
    - Representa um evento com os seguintes campos:
      - `id` (Long): Identificador único gerado automaticamente.
      - `name` (String): Nome do evento.
      - `date` (LocalDateTime): Data e hora do evento.
      - `location` (String): Local do evento.
-     - `participants` (List): Lista de participantes.
+     - `participants` (List<Participant>): Lista de participantes.
 
-Participant (pendente)
-Esta entidade será desenvolvida futuramente para gerenciar os participantes dos eventos.
+2. **Participant** (Implementado)
+   - Representa um participante com os seguintes campos:
+     - `id` (Long): Identificador único gerado automaticamente.
+     - `name` (String): Nome do participante.
+     - `email` (String): E-mail do participante.
