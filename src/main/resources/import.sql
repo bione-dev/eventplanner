@@ -29,5 +29,5 @@ INSERT INTO Event_participants (Event_id, participants_id) VALUES
 -- Ajustar o próximo valor do ID da tabela Event
 ALTER TABLE Event ALTER COLUMN id RESTART WITH 4;
 
--- Ajustar o próximo valor do ID da tabela Participant (opcional, se novos participantes forem criados)
+-- Ajustar o próximo valor do ID da tabela Participant
 ALTER TABLE Participant ALTER COLUMN id RESTART WITH 6;

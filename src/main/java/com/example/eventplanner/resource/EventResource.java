@@ -1,8 +1,8 @@
 package com.example.eventplanner.resource;
 
 import com.example.eventplanner.model.Event;
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import java.util.List;
@@ -19,7 +19,7 @@ public class EventResource {
 
     @POST
     @Transactional
-    public Event createEvent(Event event) {
+    public Event createEvent(@Valid Event event) {
         event.persist();
         return event;
     }
@@ -27,7 +27,7 @@ public class EventResource {
     @PUT
     @Path("/{id}")
     @Transactional
-    public Event updateEvent(@PathParam("id") Long id, Event updatedEvent) {
+    public Event updateEvent(@PathParam("id") Long id, @Valid Event updatedEvent) {
         Event event = Event.findById(id);
         if (event == null) {
             throw new WebApplicationException("Event not found", 404);
